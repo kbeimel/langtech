@@ -183,7 +183,7 @@ function pow2(n : nat) : nat {
       x := 0;
 (2)    { 1 == pow2(x+1) -1 }
       y := 1;
-(3)    { y == pow2(x+1) -1 };
+(3)    { y == pow2(x+1) -1 && 1 == pow2(x) };
       z := 1;
 (4)    {  y == pow2(x+1) -1 && z == pow2(x)  }
       while x != n {
@@ -227,9 +227,9 @@ function pow2(n : nat) : nat {
     { true } ->
 (a) { 0 + 0 + c == 0 + 0 + c }
       x := 0;
-(b)                { y == 0 && z == x + c }
+(b)                { x == 0 }
       y := 0;
-(c)                { y == 0 && z == x + c  }
+(c)                { y == 0 && c == x + c  }
       z := c;
 (d)                { y == 0 && z == x + 0 + c  }
       while x != a {
