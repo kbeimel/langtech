@@ -225,31 +225,31 @@ function pow2(n : nat) : nat {
 
 /*
     { true } ->
-(a) { FILL_IN_HERE }
+(a) { 0 + 0 + c == 0 + 0 + c }
       x := 0;
-(b)                { FILL_IN_HERE }
+(b)                { y == 0 && z == x + 0 + c }
       y := 0;
-(c)                { FILL_IN_HERE }
+(c)                { y == 0 && z == x + 0 + c  }
       z := c;
-(d)                { FILL_IN_HERE }
+(d)                { y == 0 && z == x + 0 + c  }
       while x != a {
-(e)                { FILL_IN_HERE } ->
-(f)                { FILL_IN_HERE }
+(e)                { y == 0 && z == x + c && x != a  } ->
+(f)                { y == 0 && z + 1 == (x + 1) + c  }
         x := x + 1;
-(g)                { FILL_IN_HERE }
+(g)                { y == 0 && z + 1 == x + c  }
         z := z + 1;
-(h)                { FILL_IN_HERE }
+(h)                { y == 0 && z == x + c  }
       end;
-(i)                { FILL_IN_HERE } ->
-(j)                { FILL_IN_HERE }
+(i)                { y == 0 && z == x + c && a == x } ->
+(j)                { z == a + c + y }
       while y != b {
-(k)                { FILL_IN_HERE } ->
-(l)                { FILL_IN_HERE }
+(k)                { z == a + c + y && y != b } ->
+(l)                { z + 1 == a + c + (y + 1) }
         y := y + 1;
-(m)                { FILL_IN_HERE }
+(m)                { z + 1 == a + c + y }
         z := z + 1;
-(n)                { FILL_IN_HERE }
+(n)                { z == a + c + y }
       }
-(o) { FILL_IN_HERE } ->
+(o) { z == a + c + y && y == b  } ->
     { z == a + b + c }
 */
