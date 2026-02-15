@@ -25,7 +25,7 @@ method PlusOne (x : int) returns (y : int)
 // in method Swap (which swaps elements i and j in array a).
 
 method Swap (a : array<int>, i : int, j : int)
-    requires // TODO
+    requires 0<=i< a.Length && 0<=j<a.Length// TODO
     modifies a  // Dafny requires listing of objects modified in a method
 {
     var tmp : int := a[i];
@@ -42,7 +42,7 @@ method Swap (a : array<int>, i : int, j : int)
 
 method IntDiv (m : int, n : int) returns (d : int, r : int)
     requires n > 0
-    ensures // TODO
+    ensures d*n + r == m
 {
     return m / n, m % n;
 }
@@ -55,7 +55,7 @@ method IntDiv (m : int, n : int) returns (d : int, r : int)
 
 method ArraySum (a : array<int>, b : array<int>) returns (c : array<int>)
     requires a.Length == b.Length
-    ensures // TODO
+    ensures c.Length == a.Length // FIXME
 {
     c := new int [a.Length];  // Creates new array of size a.Length
     var i : int := 0;
@@ -85,7 +85,8 @@ method IsSorted (a : array<int>) returns (isSorted : bool)
     else
     {
         while (i < a.Length)
-            invariant // TODO
+            invariant i <= a.Length
+            invariant isSorted <==> forall j : int :: 1 <= j < i ==> a[j-1] <= a[j]
         {
             if a[i-1] > a[i]
             {
@@ -105,7 +106,21 @@ method IsPrime (m : int) returns (isPrime : bool)
     requires m > 0
     ensures isPrime <==> (m > 1 && forall j : int :: 2 <= j < m ==> m % j != 0)
 {
-    // TODO
+    var i : int := 2;
+    if m <= 1 {
+        return false; 
+    }
+    isPrime := true; 
+    while i < m 
+        invariant 2 <= i <= m
+        invariant isPrime <==> (forall j : int :: 2 <= j < i ==> m % j != 0 )
+        {
+        if m % i == 0 {
+            isPrime := false ; 
+            break ; 
+        }
+        i := i+1; 
+    }
 }
 
 // Question 7 (20 points)
@@ -120,7 +135,16 @@ method Reverse (a : array<int>) returns (aRev : array<int>)
     ensures forall i : int :: 0 <= i < a.Length ==> a[i] == aRev[aRev.Length-i-1]
     ensures fresh(aRev) // Indicates returned object is newly created in method body
 {
-    // TODO
+    aRev := new int[a.Length];
+    var i : int := a.Length;
+    while i > 0 
+    invariant 0 <= i <= a.Length
+    invariant forall j : int ::  i<= j < a.Length ==> a[j] == aRev[a.Length-1 -j]
+
+    {
+        i := i -1 ; 
+        aRev[a.Length -1 -i ] := a[i] ; 
+    }
 }
 
 // Question 8 (15 points)
