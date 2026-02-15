@@ -227,9 +227,9 @@ function pow2(n : nat) : nat {
     { true } ->
 (a) { 0 + 0 + c == 0 + 0 + c }
       x := 0;
-(b)                { y == 0 && z == x + 0 + c }
+(b)                { y == 0 && z == x + c }
       y := 0;
-(c)                { y == 0 && z == x + 0 + c  }
+(c)                { y == 0 && z == x + c  }
       z := c;
 (d)                { y == 0 && z == x + 0 + c  }
       while x != a {
