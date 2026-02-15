@@ -13,7 +13,7 @@
 // method PlusOne
 
 method PlusOne (x : int) returns (y : int)
-    requires // TODO
+    requires x >= 0 // TODO
     ensures y > 0
 {
     y := x+1;
