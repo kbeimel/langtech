@@ -56,6 +56,8 @@ method IntDiv (m : int, n : int) returns (d : int, r : int)
 method ArraySum (a : array<int>, b : array<int>) returns (c : array<int>)
     requires a.Length == b.Length
     ensures c.Length == a.Length // FIXME
+    ensures fresh(c)
+    ensures forall j : int :: 0 <= j < a.Length ==> c[j] == a[j] + b[j]
 {
     c := new int [a.Length];  // Creates new array of size a.Length
     var i : int := 0;
@@ -177,24 +179,24 @@ function pow2(n : nat) : nat {
 
 /* 
     { true } ->
-(1)    { FILL_IN_HERE }
+(1)    { 1 == pow2(0+1) -1 }
       x := 0;
-(2)    { FILL_IN_HERE }
+(2)    { 1 == pow2(x+1) -1 }
       y := 1;
-(3)    { FILL_IN_HERE };
+(3)    { y == pow2(x+1) -1 };
       z := 1;
-(4)    { FILL_IN_HERE }
+(4)    {  y == pow2(x+1) -1 && z == pow2(x)  }
       while x != n {
-(5)       { FILL_IN_HERE } ->
-(6)       { FILL_IN_HERE }
+(5)       {   y == pow2(x+1) -1 && z == pow2(x)  && x != n } ->
+(6)       { y + 2*z == pow2(x + 2) -1 && 2*z == pow2(x + 1)  }
         z := 2 * z;
-(7)       { FILL_IN_HERE }
+(7)       { y + z == pow2(x + 2) -1 && z == pow2(x+1) }
         y := y + z;
-(8)       { FILL_IN_HERE }
+(8)       { y == pow2(x + 2) -1 && z == pow2(x+1) }
         x := x + 1;
-(9)       { FILL_IN_HERE }
+(9)       {  y == pow2(x + 1) -1 && z == pow2(x) }
       }
-(10)  { FILL_IN_HERE } ->
+(10)  {  y == pow2(x+1) -1 && z == pow2(x) && x == n } ->
       { y == pow2 (n+1) - 1 }
 */
 
