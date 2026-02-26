@@ -105,16 +105,14 @@ tabc = "abc" ~: TestList [abc True False True  ~?= True,
 
 arithmetic :: ((Int, Int), Int) -> ((Int,Int), Int) -> (Int, Int, Int)
 arithmetic x1 x2 =
-     let a = fst (fst x1) in
-     let b = snd (fst x1) in
-     let c = snd x1 in
-     let d = fst (fst x2) in
-     let e = snd (fst x2) in
-     let f = snd x2
-       in
-       ((((((b*f) - (c*e)), ((c*
-       d) - (a*f)
-       ), ((a*e)-(b*d))))))
+
+     let ((aOne, aTwo), aThree) = x1 in
+     let ((bOne, bTwo), bThree) = x2 in
+       ((aTwo*bThree - aThree*bTwo),
+       (((aThree * bOne) - (aOne * bThree)),
+       (aOne * bTwo) - (aTwo * bOne)))
+
+
 
 tarithmetic :: Test
 tarithmetic = "arithmetic" ~:
