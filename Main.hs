@@ -91,9 +91,10 @@ where) can and should be renamed.
 -- Part One
 
 abc x y z =
-  if x then if y then True else
-       if (x && z) then True else False
-  else False
+case (x, y, z) of 
+  (True, _, True) -> True
+  (_, _, _) -> False  
+
 
 tabc :: Test
 tabc = "abc" ~: TestList [abc True False True  ~?= True,
