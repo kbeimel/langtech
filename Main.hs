@@ -91,9 +91,9 @@ where) can and should be renamed.
 -- Part One
 
 abc x y z =
-case (x, y, z) of 
-  (True, _, True) -> True
-  (_, _, _) -> False  
+  case (x, y, z) of 
+     (True, _, True) -> True
+     (_, _, _) -> False  
 
 
 tabc :: Test
