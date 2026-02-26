@@ -108,9 +108,11 @@ arithmetic x1 x2 =
 
      let ((aOne, aTwo), aThree) = x1 in
      let ((bOne, bTwo), bThree) = x2 in
-       ((aTwo*bThree - aThree*bTwo),
-       (((aThree * bOne) - (aOne * bThree)),
-       (aOne * bTwo) - (aTwo * bOne)))
+        
+        ((aTwo * bThree) - (aThree * bTwo),
+         (aThree * bOne) - (aOne * bThree),
+         (aOne * bTwo) - (aTwo * bOne))
+
 
 
 
