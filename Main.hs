@@ -104,14 +104,14 @@ tabc = "abc" ~: TestList [abc True False True  ~?= True,
 -- Part Two
 
 arithmetic :: ((Int, Int), Int) -> ((Int,Int), Int) -> (Int, Int, Int)
-arithmetic x1 x2 =
+arithmetic x1 x2 ={
 
   let ((aOne, aTwo), aThree) = x1 in
   let ((bOne, bTwo), bThree) = x2 in
      
   ((aTwo * bThree) - (aThree * bTwo),(aThree * bOne) - (aOne * bThree),
   (aOne * bTwo) - (aTwo * bOne))
-
+}
 
 
 
