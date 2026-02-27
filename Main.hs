@@ -28,7 +28,7 @@ available with qualified names, such as List.intersperse, etc.
 
 module Main where
 import Prelude hiding (reverse, concat, zip, (++), takeWhile, all)
-import Test.HUnit
+{-import Test.HUnit-}
 
 {-
 The main "entry point" for this assignment runs the tests for each
@@ -106,12 +106,11 @@ tabc = "abc" ~: TestList [abc True False True  ~?= True,
 arithmetic :: ((Int, Int), Int) -> ((Int,Int), Int) -> (Int, Int, Int)
 arithmetic x1 x2 =
 
-     let ((aOne, aTwo), aThree) = x1 in
-     let ((bOne, bTwo), bThree) = x2 in
-        
-        ((aTwo * bThree) - (aThree * bTwo),
-         (aThree * bOne) - (aOne * bThree),
-         (aOne * bTwo) - (aTwo * bOne))
+  let ((aOne, aTwo), aThree) = x1 in
+  let ((bOne, bTwo), bThree) = x2 in
+     
+  ((aTwo * bThree) - (aThree * bTwo),(aThree * bOne) - (aOne * bThree),
+  (aOne * bTwo) - (aTwo * bOne))
 
 
 
