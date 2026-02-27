@@ -28,7 +28,7 @@ available with qualified names, such as List.intersperse, etc.
 
 module Main where
 import Prelude hiding (reverse, concat, zip, (++), takeWhile, all)
-{-import Test.HUnit-}
+import Test.HUnit
 
 {-
 The main "entry point" for this assignment runs the tests for each
