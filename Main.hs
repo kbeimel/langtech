@@ -122,10 +122,11 @@ tarithmetic = "arithmetic" ~:
 
 -- Part Three
 
-reverse l  = reverseAux l [] where
-  reverseAux l acc =
-    if null l then acc
-       else reverseAux (tail l) (head l : acc)
+reverse list  = reverseAux list [] where
+  reverseAux list acc =
+    if null list then 
+       acc
+    else reverseAux (tail list) (head list : acc)
 
 treverse :: Test
 treverse = "reverse" ~: TestList
@@ -134,9 +135,12 @@ treverse = "reverse" ~: TestList
 
 -- Part Four
 
-zip xs ys = g 0 xs ys where
-  g n xs ys = if n == length xs || n == length ys then [] else
-          (xs !! n, ys !! n) : g (n + 1) xs ys
+zip xs ys = zipAux 0 xs ys where
+  zipAux current xs ys = 
+    if current == length xs || current == length ys then
+      [] 
+    else
+      (xs !! current, ys !! current) : zipAux (current + 1) xs ys
 
 tzip :: Test
 tzip = "zip" ~:
