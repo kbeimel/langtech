@@ -91,10 +91,10 @@ where) can and should be renamed.
 -- Part One
 
 abc x y z =
-  case (x, y, z) of 
+  case (x, y, z) of {
      (True, _, True) -> True
      (_, _, _) -> False  
-
+  }
 
 tabc :: Test
 tabc = "abc" ~: TestList [abc True False True  ~?= True,
