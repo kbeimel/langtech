@@ -191,11 +191,21 @@ testLists = "testLists" ~: TestList
 -- >>> minumumMaybe [2,1,3]
 -- Just 1 
 minimumMaybe :: [Int] -> Maybe Int
-minimumMaybe = undefined
+minimumMaybe list= 
+  if list = [] then
+    Nothing
+  else 
+    let min = list[0] in
+    for (var i = 0; i < list.length; ++i) {
+      if list[i] < min then
+        min = list[i]
+    }
+   Just min 
 
 tminimumMaybe :: Test
 tminimumMaybe =
-   "minimumMaybe" ~: (assertFailure "testcases for minimumMaybe" :: Assertion)
+   "minimumMaybe" ~: TestList[ minimumMaybe [] ~?= Nothing,
+             minimumMaybe [1, 2, 3, 4, 5] ~?= Just 1]
 
 -- Part Two
 
