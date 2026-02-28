@@ -215,11 +215,15 @@ tminimumMaybe =
 -- >>> "Hello" `startsWith` "Wello Horld!"
 -- False
 startsWith :: String -> String -> Bool
-startsWith prefix word= 
+startsWith pref word= 
+  let shortWord = fst (splitAt (length pref) word) in
+  shortWord == pref 
+
   
 
 tstartsWith :: Test
-tstartsWith = "startsWith" ~: (assertFailure "testcase for startsWith" :: Assertion)
+tstartsWith = "startsWith" ~: TestList[ startsWith "far" "fart" ~?= True,
+             startsWith "fir" "fart" ~?= False]
 
 -- Part Three
 
@@ -234,10 +238,13 @@ tstartsWith = "startsWith" ~: (assertFailure "testcase for startsWith" :: Assert
 -- False
 
 endsWith :: String -> String -> Bool
-endsWith = undefined
+endsWith suf word= 
+  let shortWord = snd (splitAt (length word - length suf) word) in
+  shortWord == suf 
 
 tendsWith :: Test
-tendsWith = "endsWith" ~: (assertFailure "testcase for endsWith" :: Assertion)
+tendsWith = "endsWith" ~: TestList[ endsWith "ed" "farted" ~?= True,
+             endsWith "end" "farted" ~?= False]
 
 -- Part Four
 
