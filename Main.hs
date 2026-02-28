@@ -192,7 +192,7 @@ testLists = "testLists" ~: TestList
 -- Just 1 
 minimumMaybe :: [Int] -> Maybe Int
 minimumMaybe list= 
-  if list = [] then
+  if list == [] then
     Nothing
   else 
     Just (foldl min (head list) (tail list))  
