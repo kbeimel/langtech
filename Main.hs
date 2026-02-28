@@ -195,12 +195,9 @@ minimumMaybe list=
   if list = [] then
     Nothing
   else 
-    let min = list[0] in
-    for (var i = 0; i < list.length; ++i) {
-      if list[i] < min then
-        min = list[i]
-    }
-   Just min 
+    Just (foldl min (head list) (tail list))  
+  
+   
 
 tminimumMaybe :: Test
 tminimumMaybe =
@@ -218,7 +215,8 @@ tminimumMaybe =
 -- >>> "Hello" `startsWith` "Wello Horld!"
 -- False
 startsWith :: String -> String -> Bool
-startsWith = undefined
+startsWith prefix word= 
+  
 
 tstartsWith :: Test
 tstartsWith = "startsWith" ~: (assertFailure "testcase for startsWith" :: Assertion)
