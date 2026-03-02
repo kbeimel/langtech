@@ -264,6 +264,7 @@ tendsWith = "endsWith" ~: TestList[ endsWith "ed" "farted" ~?= True,
 -- >>> transpose [[1,2],[3,4,5]]
 -- [[1,3],[2,4]]
 -- (WARNING: this one is tricky!)
+-- what function would transpose be essentially equivalent to if it was fixed -- to exactly 2 rows
 transpose :: [[a]] -> [[a]]
 transpose = undefined
 
@@ -281,9 +282,17 @@ ttranspose = "transpose" ~: (assertFailure "testcase for transpose" :: Assertion
 -- 5
 
 countSub :: String -> String -> Int
-countSub = undefined
+countSub subs str = 
+  countSubAux subs str 0 
+
+countSubAux subs str count  
+  |length str < length subs = count
+  |take (length subs) str == subs = countSubAux subs (drop 1 str) (count + 1)
+  |otherwise = countSubAux subs (drop 1 str) (count)
+
 tcountSub :: Test
-tcountSub = "countSub" ~: (assertFailure "testcase for countSub" :: Assertion)
+tcountSub = "countSub" ~: TestList[ countSub "aa" "aaa" ~?= 2,
+             countSub "" "aaac" ~?= 5]
 
 --------------------------------------------------------------------------------
 -- Problem (Higher-order list operations)
