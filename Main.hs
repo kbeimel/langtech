@@ -461,7 +461,10 @@ function. Instead, define it yourself.
 -}
 
 concat' :: [[a]] -> [a]
-concat' = undefined
+concat' xss = 
+  foldr append [] xss where
+    append ys [] = ys 
+    append (x:xs) ys = x : append xs ys  
 
 tconcat' :: Test
 tconcat' = "concat" ~: (assertFailure "testcase for concat" :: Assertion)
@@ -478,8 +481,16 @@ tconcat' = "concat" ~: (assertFailure "testcase for concat" :: Assertion)
 -- NOTE: use foldr for this one, but it is tricky! (Hint: the value returned by foldr can itself be a function.)
 
 startsWith' :: String -> String -> Bool
-startsWith' = undefined
-tstartsWith' = "tstartsWith'" ~: (assertFailure "testcase for startsWith'" :: Assertion)
+startsWith' = prefix word = 
+  foldr  next start prefix word where 
+    start _ = True 
+    next curr again [] = False 
+    next curr again (x:xs) 
+      |curr == x = again xs 
+      |otherwise = False
+
+tstartsWith' = "tstartsWith'" ~: TestList[ startsWith' "far" "fart" ~?= True,
+             startsWith' "fir" "fart" ~?= False]
 
 -- INTERLUDE: para
 
@@ -604,7 +615,9 @@ foldTree f e (Branch a n1 n2) = f a (foldTree f e n1) (foldTree f e n2)
 appendTree :: Tree a -> Tree a -> Tree a
 appendTree = undefined
 tappendTree :: Test
-tappendTree = "appendTree" ~: (assertFailure "testcase for appendTree"  :: Assertion)
+tappendTree = "appendTree" ~: TestList[
+    appendTree (Branch 'a' Empty Empty) (Branch 'b' Empty Empty) ~?=Branch 'a' (Branch 'b' Empty Empty) (Branch 'b' Empty Empty),
+    appendTree Empty (Branch 'a' Empty Empty) ~?= Branch 'a' Empty Empty]
 
 -- The `invertTree` function takes a tree of pairs and returns a new tree
 -- with each pair reversed.  For example:
