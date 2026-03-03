@@ -374,9 +374,15 @@ tfind = "find" ~: TestList [
 -- False
 
 all  :: (a -> Bool) -> [a] -> Bool
-all = undefined
+all _ [] = True
+all pred (x:xs)
+  |pred x = pred x && all pred xs 
+  |otherwise = False 
+
 tall :: Test
-tall = "all" ~: (assertFailure "testcase for all" :: Assertion)
+tall = "all" ~: TestList[
+  all odd [1,2,3,4] ~?= False,
+  all odd [1,3,5,7,9] ~?= True]
 
 -- | `map2 f xs ys` returns the list obtained by applying `f` to
 -- to each pair of corresponding elements of `xs` and `ys`. If
