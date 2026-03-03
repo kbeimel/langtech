@@ -280,11 +280,13 @@ transpose xss =
 
 
 ttranspose :: Test
-ttranspose = "transpose" ~: TestList[ 
-transpose [[1,2,3],[4,5,6]] ~?= [[1,4],[2,5],[3,6]],
-transpose [[3,4,5]] ~?= [[3],[4],[5]],
-transpose [[1,2],[3,4,5]] ~?= [[1,3],[2,4]]  ]
-
+ttranspose = "transpose" ~: TestList
+  [ transpose [[1,2,3],[4,5,6]] ~?= [[1,4],[2,5],[3,6]]
+  , transpose [[]]              ~?= ([] :: [[Int]])
+  , transpose []                ~?= ([] :: [[Int]])
+  , transpose [[3,4,5]]         ~?= [[3],[4],[5]]
+  , transpose [[1,2],[3,4,5]]   ~?= [[1,3],[2,4]] 
+  ]
 -- Part Five
 
 -- | The 'countSub' function returns the number of (potentially overlapping)
