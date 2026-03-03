@@ -357,7 +357,7 @@ ttakeWhile = "takeWhile" ~: TestList[
 
 find :: (a -> Bool) -> [a] -> Maybe a
 find _ [] = Nothing
-find pred x:xs 
+find pred (x:xs)
   |pred x = Just x 
   |otherwise = find pred xs 
 
