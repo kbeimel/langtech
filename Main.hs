@@ -191,13 +191,14 @@ testLists = "testLists" ~: TestList
 -- >>> minumumMaybe [2,1,3]
 -- Just 1 
 minimumMaybe :: [Int] -> Maybe Int
-minimumMaybe list= 
-  if list == [] then
-    Nothing
-  else 
-    Just (foldl min (head list) (tail list))  
+minimumMaybe [] = Nothing
+minimumMaybe (x:xs)= 
+  Just (minAux x xs) where 
+    minAux mini [] = mini 
+    minAux mini (y:ys) 
+      | y < mini = minAux y ys 
+      | otherwise = minAux mini ys 
   
-   
 
 tminimumMaybe :: Test
 tminimumMaybe =
@@ -215,11 +216,9 @@ tminimumMaybe =
 -- >>> "Hello" `startsWith` "Wello Horld!"
 -- False
 startsWith :: String -> String -> Bool
-startsWith pref word= 
-  let shortWord = fst (splitAt (length pref) word) in
-  shortWord == pref 
-
-  
+startsWith [] _ = True
+startsWith _ [] = False  
+startsWith (p:refix) (w:ord) = p == w && startsWith refix ord
 
 tstartsWith :: Test
 tstartsWith = "startsWith" ~: TestList[ startsWith "far" "fart" ~?= True,
@@ -239,8 +238,9 @@ tstartsWith = "startsWith" ~: TestList[ startsWith "far" "fart" ~?= True,
 
 endsWith :: String -> String -> Bool
 endsWith suf word= 
-  let shortWord = snd (splitAt (length word - length suf) word) in
-  shortWord == suf 
+  endAux word where 
+    endAux current@(_:wordEnd) = current == suf || endAux wordEnd 
+    endAux [] = [] == suf
 
 tendsWith :: Test
 tendsWith = "endsWith" ~: TestList[ endsWith "ed" "farted" ~?= True,
@@ -266,10 +266,26 @@ tendsWith = "endsWith" ~: TestList[ endsWith "ed" "farted" ~?= True,
 -- (WARNING: this one is tricky!)
 -- what function would transpose be essentially equivalent to if it was fixed -- to exactly 2 rows
 transpose :: [[a]] -> [[a]]
-transpose = undefined
+transpose [] = []
+transpose ([] : _) = []
+transpose xss = 
+  headAux xss : transpose (tailAux xss) where 
+    headAux [] = []
+    headAux ((y:_):ys) = y : headAux ys 
+    headAux([]:_) = [] 
+
+    tailAux [] = [] 
+    tailAux ((_:zs):ys) = zs : tailAux ys 
+    tailAux([]:_) = []
+
 
 ttranspose :: Test
-ttranspose = "transpose" ~: (assertFailure "testcase for transpose" :: Assertion)
+ttranspose = "transpose" ~: TestList[ 
+transpose [[1,2,3],[4,5,6]] ~?= [[1,4],[2,5],[3,6]],
+transpose [[]] ~?= [],
+transpose [] ~?= [],
+transpose [[3,4,5]] ~?= [[3],[4],[5]],
+transpose [[1,2],[3,4,5]] ~?= [[1,3],[2,4]]  ]
 
 -- Part Five
 
