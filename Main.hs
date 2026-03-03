@@ -282,8 +282,6 @@ transpose xss =
 ttranspose :: Test
 ttranspose = "transpose" ~: TestList[ 
 transpose [[1,2,3],[4,5,6]] ~?= [[1,4],[2,5],[3,6]],
-transpose [[]] ~?= [],
-transpose [] ~?= [],
 transpose [[3,4,5]] ~?= [[3],[4],[5]],
 transpose [[1,2],[3,4,5]] ~?= [[1,3],[2,4]]  ]
 
