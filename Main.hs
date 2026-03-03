@@ -398,9 +398,10 @@ tall = "all" ~: TestList[
 -- NOTE: `map2` is called `zipWith` in the Prelude
 
 map2 :: (a -> b -> c) -> [a] -> [b] -> [c]
-map2 func (x:xs) (y:ys) = 
-  f x y : map2 xs ys
 map2 _ _ _ = [] 
+map2 func (x:xs) (y:ys) = 
+  func x y : map2 xs ys
+
 
 tmap2 :: Test
 tmap2 = "map2" ~: TestList[ 
