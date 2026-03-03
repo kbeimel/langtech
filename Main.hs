@@ -398,23 +398,31 @@ tall = "all" ~: TestList[
 -- NOTE: `map2` is called `zipWith` in the Prelude
 
 map2 :: (a -> b -> c) -> [a] -> [b] -> [c]
-map2 = undefined
+map2 func (x:xs) (y:ys) = 
+  f x y : map2 xs ys
+map2 _ _ _ = [] 
 
 tmap2 :: Test
-tmap2 = "map2" ~: (assertFailure "testcase for map2" :: Assertion)
+tmap2 = "map2" ~: TestList[ 
+    map2 (+) [1,2] [3,4] ~?= [4,6]]
 
 -- | Apply a partial function to all the elements of the list,
--- keeping only valid outputs.
+-- keeping only valid outputs. 
 --
 -- >>> mapMaybe root [0.0, -1.0, 4.0]
 -- [0.0,2.0]
 --
 -- (where `root` is defined below.)
 mapMaybe :: (a -> Maybe b) -> [a] -> [b]
-mapMaybe = undefined
+mapMaybe f []= []
+mapMaybe f (x:xs) = 
+  case f x of 
+    Just result -> result : mapMaybe f xs 
+    Nothing -> mapMaybe f xs 
 
 tmapMaybe :: Test
-tmapMaybe = "mapMaybe" ~: (assertFailure "testcase for mapMaybe" :: Assertion)
+tmapMaybe = "mapMaybe" ~: TestList[ 
+    mapMaybe root [0.0, -1.0, 4.0] ~?= [0.0, 2.0]]
 
 root :: Double -> Maybe Double
 root d = if d < 0.0 then Nothing else Just $ sqrt d
