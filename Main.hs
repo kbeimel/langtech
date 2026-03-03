@@ -400,7 +400,7 @@ tall = "all" ~: TestList[
 map2 :: (a -> b -> c) -> [a] -> [b] -> [c]
 map2 _ _ _ = [] 
 map2 func (x:xs) (y:ys) = 
-  func x y : map2 xs ys
+  func x y : map2 func xs ys
 
 
 tmap2 :: Test
