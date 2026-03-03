@@ -298,14 +298,15 @@ ttranspose = "transpose" ~: TestList
 -- 5
 
 countSub :: String -> String -> Int
-countSub subs str = 
+countSub = undefined 
+{-countSub subs str = 
   countSubAux subs str 0 
 
 countSubAux subs str count  
   |length str < length subs = count
   |take (length subs) str == subs = countSubAux subs (drop 1 str) (count + 1)
   |otherwise = countSubAux subs (drop 1 str) (count)
-
+-}
 tcountSub :: Test
 tcountSub = "countSub" ~: TestList[ countSub "aa" "aaa" ~?= 2,
              countSub "" "aaac" ~?= 5]
