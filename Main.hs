@@ -339,7 +339,7 @@ testHO = TestList [ttakeWhile, tfind, tall, tmap2, tmapMaybe]
 takeWhile :: (a -> Bool) -> [a] -> [a]
 takeWhile pred [] = [] 
 takeWhile pred (x:xs) 
-  |p x = x : takeWhile pred xs
+  |pred x = x : takeWhile pred xs
   |otherwise = [] 
 
 ttakeWhile :: Test
