@@ -302,8 +302,8 @@ countSub "" str = length str + 1
 countSub subs str = countSubAux subs str 0 where 
   countSubAux sub [] count = count
   countSubAux sub current@(_:strEnd) count 
-  |startsWith sub current = countSubAux sub strEnd (count + 1)
-  |otherwise = countSubAux sub strEnd count 
+    |startsWith sub current = countSubAux sub strEnd (count + 1)
+    |otherwise = countSubAux sub strEnd count 
 
 tcountSub :: Test
 tcountSub = "countSub" ~: TestList[ countSub "aa" "aaa" ~?= 2,
