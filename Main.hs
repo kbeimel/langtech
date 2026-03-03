@@ -481,7 +481,7 @@ tconcat' = "concat" ~: (assertFailure "testcase for concat" :: Assertion)
 -- NOTE: use foldr for this one, but it is tricky! (Hint: the value returned by foldr can itself be a function.)
 
 startsWith' :: String -> String -> Bool
-startsWith' = prefix word = 
+startsWith' prefix word = 
   foldr  next start prefix word where 
     start _ = True 
     next curr again [] = False 
