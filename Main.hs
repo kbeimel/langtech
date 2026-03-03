@@ -365,8 +365,7 @@ tfind :: Test
 tfind = "find" ~: TestList [
   find odd [0,2,3,4] ~?= Just 3,
   find odd [] ~?= Nothing, 
-  find odd [2,4,6,8] ~?= Nothing
-]
+  find odd [2,4,6,8] ~?= Nothing ]
 
 -- | `all pred lst` returns `False` if any element of `lst`
 -- fails to satisfy `pred` and `True` otherwise.
