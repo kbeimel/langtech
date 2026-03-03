@@ -337,9 +337,13 @@ testHO = TestList [ttakeWhile, tfind, tall, tmap2, tmapMaybe]
 -- []
 
 takeWhile :: (a -> Bool) -> [a] -> [a]
-takeWhile = undefined
+takeWhile pred [] = [] 
+takeWhile pred (x:xs) 
+|p x = x : takeWhile pred xs
+|otherwise = [] 
+
 ttakeWhile :: Test
-ttakeWhile = "takeWhile" ~: (assertFailure "testcase for takeWhile" :: Assertion)
+ttakeWhile = "takeWhile" ~: TestList[takeWhile (< 3) [1,2,3,4,1,2,3,4] ~?=[1,2],takeWhile (< 9) [1,2,3] ~?= [1,2,3], takeWhile (< 0) [1,2,3] ~?= [0],   ]
 
 -- | `find pred lst` returns the first element of the list that
 -- satisfies the predicate. Because no element may do so, the
